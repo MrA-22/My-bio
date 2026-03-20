@@ -156,9 +156,9 @@ export default function Hero() {
               <span className="text-cyan-400 font-semibold">C# & Unity</span> untuk merancang mekanik 
               gameplay, sistem interaksi, serta pengalaman visual yang imersif, 
               termasuk eksplorasi 
-              <span className="text-cyan-400 font-semibold">Virtual Reality (VR)</span>
-              dan 
-              <span className="text-cyan-400 font-semibold">Unreal Engine</span> untuk pengalaman 3D yang lebih realistis.
+              <span className="text-cyan-400 font-semibold"> Virtual Reality (VR) </span>
+              dan
+              <span className="text-cyan-400 font-semibold"> Unreal Engine </span> untuk pengalaman 3D yang lebih realistis.
             </p>
 
             <p className="text-gray-400 mt-3 leading-relaxed">
