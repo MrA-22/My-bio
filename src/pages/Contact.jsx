@@ -178,19 +178,24 @@ export default function Contact() {
           </motion.div>
 
           <div className="flex gap-4">
-            {["GitHub", "Facebook", "Instagram"].map((item, i) => (
+            {[
+              { name: "GitHub", url: "https://github.com/MrA-22" },
+              { name: "Facebook", url: "https://www.facebook.com/Ruang.saya1/?viewas=100000686899395" },
+              { name: "Instagram", url: "hhttps://www.instagram.com/bear_bucin?igsh=MW41a291dmJqcGdxOA==ttps://instagram.com/username" },
+            ].map((item, i) => (
               <motion.a
                 key={i}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                href="#"
+                href={item.url}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="px-4 py-2 bg-black/40 backdrop-blur-xl border border-white/10 rounded-lg hover:border-cyan-400 transition"
               >
-                {item}
+                {item.name}
               </motion.a>
             ))}
           </div>
-
         </motion.div>
 
         {/* RIGHT */}
