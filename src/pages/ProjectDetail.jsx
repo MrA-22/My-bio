@@ -54,12 +54,12 @@ export default function ProjectDetail() {
             name: "VR Home Design",
             desc: "Aplikasi VR untuk desain rumah interaktif.",
             images: [
-                { url: "/images/vr1.jpg", desc: "Desain dalam VR" }
+                { url: "/images/VrHD/mainmenu.png", desc: "MainMenu VR Home Design" },
             ],
             videos: [
                 {
                     url: "/videos/vr-demo.mp4",
-                    desc: "Demo interaksi VR"
+                    desc: "Demo interaksi VR",
                 }
             ]
         }
@@ -268,7 +268,7 @@ export default function ProjectDetail() {
                         🎥 Demo
                     </h2>
 
-                    <div className="grid md:grid-cols-2 gap-6">
+                    <div className="max-w-4xl mx-20 grid grid-cols-1 gap-6">
                         {project.videos.map((vid, i) => (
                             <motion.div
                                 key={i}
@@ -284,7 +284,7 @@ export default function ProjectDetail() {
                                     autoPlay
                                     muted
                                     loop
-                                    className="w-full h-auto"
+                                    className="w-full aspect-video object-cover"
                                 />
 
                                 {vid.desc && (
