@@ -6,15 +6,21 @@ export default function Hero() {
   const navigate = useNavigate()
 
   const skills = [
-    { name: "C#", level: 80 },
-    { name: "Unity Engine", level: 75 },
-    { name: "Game Logic", level: 80 },
-    { name: "JavaScript", level: 65 },
-    { name: "React", level: 50 },
-    { name: "Tailwind CSS", level: 50 },
-    { name: "Node.js", level: 65 },
-    { name: "API Integration", level: 70 },
-  ]
+  { name: "C#", level: 80 },
+  { name: "Unity Engine", level: 75 },
+  { name: "Gameplay Systems", level: 80 },
+
+  { name: "JavaScript", level: 65 },
+  { name: "React", level: 60 },
+  { name: "Tailwind CSS", level: 60 },
+  { name: "HTML", level: 85 },
+  { name: "CSS", level: 85 },
+
+  { name: "Node.js", level: 65 },
+  { name: "Python", level: 75 },
+
+  { name: "API Integration", level: 70 },
+]
 
   const timeline = [
     { year: "2021", text: "Mulai belajar coding" },
@@ -153,9 +159,9 @@ export default function Hero() {
               Saya berfokus pada pengembangan sebagai{" "}
               <span className="text-cyan-400 font-semibold">Game Developer</span> dan{" "}
               <span className="text-purple-400 font-semibold">Web Developer</span>, dengan pendekatan yang menitikberatkan pada sistem yang terstruktur dan pengalaman pengguna yang optimal. Dalam pengembangan game, saya menggunakan{" "}
-              <span className="text-cyan-400 font-semibold">C# & Unity</span> untuk merancang mekanik 
-              gameplay, sistem interaksi, serta pengalaman visual yang imersif, 
-              termasuk eksplorasi 
+              <span className="text-cyan-400 font-semibold">C# & Unity</span> untuk merancang mekanik
+              gameplay, sistem interaksi, serta pengalaman visual yang imersif,
+              termasuk eksplorasi
               <span className="text-cyan-400 font-semibold"> Virtual Reality (VR) </span>
               dan
               <span className="text-cyan-400 font-semibold"> Unreal Engine </span> untuk pengalaman 3D yang lebih realistis.
