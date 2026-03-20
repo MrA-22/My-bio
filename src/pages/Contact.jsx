@@ -182,6 +182,7 @@ export default function Contact() {
               { name: "GitHub", url: "https://github.com/MrA-22" },
               { name: "Facebook", url: "https://www.facebook.com/Ruang.saya1/?viewas=100000686899395" },
               { name: "Instagram", url: "hhttps://www.instagram.com/bear_bucin?igsh=MW41a291dmJqcGdxOA==ttps://instagram.com/username" },
+               { name: "WhatsApp", url: "https://wa.me/6281344195326" },
             ].map((item, i) => (
               <motion.a
                 key={i}

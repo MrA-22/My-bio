@@ -55,6 +55,12 @@ export default function ProjectDetail() {
             desc: "Aplikasi VR untuk desain rumah interaktif.",
             images: [
                 { url: "/images/vr1.jpg", desc: "Desain dalam VR" }
+            ],
+            videos: [
+                {
+                    url: "/videos/vr-demo.mp4",
+                    desc: "Demo interaksi VR"
+                }
             ]
         }
     }
@@ -123,7 +129,29 @@ export default function ProjectDetail() {
                 <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
                     <AnimatedText text={project.name} />
                 </h1>
+                {id === "vr-home-design" && (
+                    <span className="inline-block text-xs px-3 py-1 rounded-full bg-purple-500/20 border border-purple-400 text-purple-300">
+                        🥽 VR Project
+                    </span>
+                )}
 
+                {id === "pirate-osam" && (
+                    <span className="inline-block text-xs px-3 py-1 rounded-full bg-purple-500/20 border border-purple-400 text-purple-300">
+                        🎮 Unity 3D
+                    </span>
+                )}
+
+                {id === "web-store" && (
+                    <span className="inline-block text-xs px-3 py-1 rounded-full bg-purple-500/20 border border-purple-400 text-purple-300">
+                        🛒 Web Store
+                    </span>
+                )}
+
+                {id === "web-sis" && (
+                    <span className="inline-block text-xs px-3 py-1 rounded-full bg-purple-500/20 border border-purple-400 text-purple-300">
+                        🎓 Web Sistem Informasi Sekolah
+                    </span>
+                )}
                 <p className="text-gray-400 leading-relaxed">
                     {project.desc}
                 </p>
@@ -137,7 +165,7 @@ export default function ProjectDetail() {
                         rel="noopener noreferrer"
                         className="inline-block mt-3 px-5 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-purple-500 shadow-[0_0_20px_rgba(34,211,238,0.3)]"
                     >
-                        Chat Bot WhatsApp
+                        Try My Bot
                     </motion.a>
                 )}
             </div>
@@ -227,6 +255,45 @@ export default function ProjectDetail() {
                             }}
                             transition={{ duration: 0.4 }}
                         />
+                    </div>
+
+                </div>
+            )}
+
+            {/* 🎥 DEMO VIDEO / GIF */}
+            {project.videos && project.videos.length > 0 && (
+                <div className="space-y-6">
+
+                    <h2 className="text-lg font-semibold text-cyan-400 uppercase tracking-widest">
+                        🎥 Demo
+                    </h2>
+
+                    <div className="grid md:grid-cols-2 gap-6">
+                        {project.videos.map((vid, i) => (
+                            <motion.div
+                                key={i}
+                                initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
+                                whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.5 }}
+                                className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-[0_0_40px_rgba(34,211,238,0.15)]"
+                            >
+                                <video
+                                    src={vid.url}
+                                    controls
+                                    autoPlay
+                                    muted
+                                    loop
+                                    className="w-full h-auto"
+                                />
+
+                                {vid.desc && (
+                                    <p className="p-3 text-sm text-gray-400 text-center">
+                                        {vid.desc}
+                                    </p>
+                                )}
+                            </motion.div>
+                        ))}
                     </div>
 
                 </div>
