@@ -1,4 +1,5 @@
 import { useState } from "react"
+import emailjs from "@emailjs/browser"
 
 export default function Contact() {
   const [form, setForm] = useState({
@@ -16,8 +17,25 @@ export default function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    alert("Message sent!")
-    console.log(form)
+
+    emailjs.send(
+      "service_mr4",
+      "template_diwbyo2",
+      {
+        name: form.name,
+        email: form.email,
+        message: form.message,
+      },
+      "XY0qy8JKTPjFN75-e"
+    )
+      .then(() => {
+        alert("Message sent successfully!")
+        setForm({ name: "", email: "", message: "" })
+      })
+      .catch((error) => {
+        console.error(error)
+        alert("Failed to send message")
+      })
   }
 
   return (
@@ -39,20 +57,20 @@ export default function Contact() {
 
           {/* CONTACT INFO CARD */}
           <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-2xl border border-gray-700 space-y-3">
-            <p><span className="text-gray-400">Email:</span> arif@email.com</p>
+            <p><span className="text-gray-400">Email:</span> ariflgln@email.com</p>
             <p><span className="text-gray-400">Location:</span> Indonesia</p>
             <p><span className="text-gray-400">Role:</span> Game & Web Developer</p>
           </div>
 
           {/* SOCIAL */}
           <div className="flex gap-4">
-            <a href="#" className="px-4 py-2 bg-gray-800 rounded-lg hover:bg-blue-500 transition">
+            <a href="https://github.com/MrA-22" className="px-4 py-2 bg-gray-800 rounded-lg hover:bg-blue-500 transition">
               GitHub
             </a>
-            <a href="#" className="px-4 py-2 bg-gray-800 rounded-lg hover:bg-blue-500 transition">
-              LinkedIn
+            <a href="https://www.facebook.com/Ruang.saya1/?viewas=100000686899395" className="px-4 py-2 bg-gray-800 rounded-lg hover:bg-blue-500 transition">
+              Facebook
             </a>
-            <a href="#" className="px-4 py-2 bg-gray-800 rounded-lg hover:bg-blue-500 transition">
+            <a href="https://www.instagram.com/bear_bucin?igsh=MW41a291dmJqcGdxOA==" className="px-4 py-2 bg-gray-800 rounded-lg hover:bg-blue-500 transition">
               Instagram
             </a>
           </div>

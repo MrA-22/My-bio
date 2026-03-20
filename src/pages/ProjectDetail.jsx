@@ -14,7 +14,7 @@ export default function ProjectDetail() {
                 { url: "/images/Wabot/menu.jpeg", desc: "Tampilan menu utama bot" },
                 { url: "/images/Wabot/allmenu.jpeg", desc: "Tampilan semua Fitur bot" },
                 { url: "/images/Wabot/tutorial.jpeg", desc: "Fitur tutorial bot" },
-                { url: "/images/Wabot/downloader.jpeg", desc: "Fitur downloader" },
+                { url: "/images/Wabot/downloader.jpeg", desc: "Fitur downloader" }
             ]
         },
 
@@ -22,7 +22,10 @@ export default function ProjectDetail() {
             name: "Web Store",
             desc: "Website e-commerce untuk jual beli produk online.",
             images: [
-                { url: "/images/store1.jpg", desc: "Landing page toko" }
+                { url: "/images/WebStore/admindashboard.png", desc: "Admin Dashboard" },
+                { url: "/images/WebStore/dashboard.png", desc: "Landing page user" },
+                { url: "/images/WebStore/cekout.png", desc: "Landing page cekout" },
+                { url: "/images/WebStore/payment.png", desc: "Landing page payment" }
             ]
         },
 
@@ -30,7 +33,10 @@ export default function ProjectDetail() {
             name: "Web SIS",
             desc: "Sistem Informasi Sekolah untuk manajemen data siswa.",
             images: [
-                { url: "/images/sis1.jpg", desc: "Dashboard admin siswa" }
+                { url: "/images/WebSIS/dashboard.png", desc: "Dashboard Sekolah" },
+                { url: "/images/WebSIS/adminpanel.png", desc: "landing page admin" },
+                { url: "/images/WebSIS/loginaprt.png", desc: "Login admin" },
+                { url: "/images/WebSIS/profilguru.png", desc: "landing page add guru" }
             ]
         },
 

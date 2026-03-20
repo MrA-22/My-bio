@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import profileImg from "../../assets/profile.jpg"
 import { motion } from "framer-motion"
 
@@ -22,40 +22,83 @@ export default function Hero() {
     { year: "2026", text: "Fokus ke Game Development" },
   ]
 
+  const education = [
+    {
+      year: "2021 - Sekarang",
+      school: "Universitas Muhammadiyah Parepare",
+      major: "Informatika / Teknik Komputer",
+      desc: "Mempelajari dasar pemrograman, struktur data, software engineering, serta pengembangan aplikasi web dan game.",
+    },
+    {
+      year: "2018 - 2021",
+      school: "Sekolah Menengah Atas",
+      major: "Jurusan MIPA",
+      desc: "Mulai mengenal logika pemrograman dan ketertarikan dalam pengembangan game dan sistem digital.",
+    },
+  ]
+
+  const projects = [
+    {
+      id: "vr-home-design",
+      title: "VR Home Design",
+      description:
+        "Aplikasi game berbasis virtual reality yang memungkinkan pengguna memvisualisasikan desain interior rumah secara interaktif.",
+    },
+  ]
+
+  const container = {
+    hidden: {},
+    show: {
+      transition: {
+        staggerChildren: 0.15,
+      },
+    },
+  }
+
+  const item = {
+    hidden: { opacity: 0, y: 40, scale: 0.95 },
+    show: { opacity: 1, y: 0, scale: 1 },
+  }
+
   return (
-    <section className="justify-center min-h-screen flex items-center px-6 py-16 bg-gradient-to-b from-black via-gray-900 to-black text-white">
+    <section className="min-h-screen flex items-center justify-center px-6 py-20 bg-black text-white relative overflow-hidden">
 
-      <div className="max-w-6xl w-full grid lg:grid-cols-3 gap-10">
+      {/* Neon Glow Background */}
+      <div className="absolute w-[500px] h-[500px] bg-cyan-500/20 blur-[140px] rounded-full top-10 left-10 animate-pulse"></div>
+      <div className="absolute w-[400px] h-[400px] bg-purple-500/20 blur-[140px] rounded-full bottom-10 right-10 animate-pulse"></div>
 
-        {/* LEFT PROFILE */}
+      <motion.div
+        variants={container}
+        initial="hidden"
+        animate="show"
+        className="max-w-6xl w-full grid lg:grid-cols-3 gap-10 z-10"
+      >
+
+        {/* PROFILE */}
         <motion.div
-          initial={{ opacity: 0, x: -60 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
-          className="lg:col-span-1 bg-gray-900/60 backdrop-blur-md p-6 rounded-2xl border border-gray-700 shadow-xl text-center"
+          variants={item}
+          whileHover={{ rotateY: 8, rotateX: 5, scale: 1.03 }}
+          className="lg:col-span-1 bg-white/5 backdrop-blur-xl p-6 rounded-3xl border border-white/10 shadow-[0_0_40px_rgba(0,255,255,0.1)] transition-transform duration-300"
         >
-
-          {/* Glow Image */}
-          <div className="flex justify-center relative">
+          <div className="flex justify-center">
             <img
               src={profileImg}
               alt="profile"
-              className="w-32 h-32 object-cover rounded-full border-4 border-blue-500 shadow-[0_0_25px_#3b82f6] hover:scale-110 hover:rotate-2 transition duration-300"
+              className="w-36 h-36 object-cover rounded-full border-4 border-cyan-500 shadow-[0_0_40px_#22d3ee] hover:scale-110 transition"
             />
           </div>
 
-          {/* Badge */}
-          <div className="mt-3">
-            <span className="bg-green-500/20 text-green-400 text-xs px-3 py-1 rounded-full border border-green-500">
+          <div className="mt-4 text-center">
+            <span className="bg-green-500/20 text-green-400 text-xs px-4 py-1 rounded-full border border-green-500 shadow-[0_0_10px_green]">
               🟢 Available for work
             </span>
           </div>
 
-          <h1 className="text-2xl font-bold mt-4">
+          <h1 className="text-3xl font-bold mt-4 text-center tracking-wide">
             Arif Rasyid
           </h1>
 
-          <p className="text-blue-400 text-sm mt-1">
+          <p className="text-cyan-400 text-sm mt-1 text-center">
             Game & Web Developer
           </p>
 
@@ -69,121 +112,157 @@ export default function Hero() {
           <div className="mt-6 flex flex-col gap-3">
             <button
               onClick={() => navigate("/projects")}
-              className="bg-blue-500 py-2 rounded-lg hover:bg-blue-600 transition shadow-[0_0_15px_#3b82f6]"
+              className="bg-gradient-to-r from-cyan-500 to-blue-500 py-2 rounded-xl hover:scale-105 transition shadow-[0_0_20px_#22d3ee]"
             >
               View Projects
             </button>
 
             <button
               onClick={() => navigate("/contact")}
-              className="border border-gray-600 py-2 rounded-lg hover:border-blue-400 transition"
+              className="border border-white/20 py-2 rounded-xl hover:border-cyan-400 hover:bg-white/5 transition"
             >
               Contact Me
             </button>
 
-            {/* Download CV */}
             <a
-              href="/cv.pdf"
+              href="/document/ArifResume.pdf"
               download
-              className="bg-gray-800 py-2 rounded-lg border border-gray-600 hover:border-blue-400 text-center transition"
+              className="bg-white/10 py-2 rounded-xl border border-white/10 hover:border-cyan-400 text-center transition hover:bg-white/5"
             >
               Download CV
             </a>
           </div>
         </motion.div>
 
-        {/* RIGHT CONTENT */}
+        {/* CONTENT */}
         <div className="lg:col-span-2 space-y-10">
 
           {/* INTRO */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <p className="text-blue-400 mb-2">👋 Hello, I'm</p>
+          <motion.div variants={item}>
+            <p className="text-cyan-400 mb-2">👋 Hello, I'm</p>
 
-            <h1 className="text-4xl md:text-5xl font-bold">
+            <h1 className="text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
               Arif Rasyid
             </h1>
 
-            <p className="text-gray-400 mt-4 leading-relaxed">
-              Saya adalah seorang <span className="text-blue-400 font-semibold">Game Developer</span> dan <span className="text-blue-400 font-semibold">Web Developer</span> yang fokus membangun aplikasi interaktif dan sistem modern.
+            <p className="text-gray-400 mt-5 leading-relaxed">
+              Perjalanan saya dimulai dari eksplorasi teknologi hingga membangun berbagai aplikasi interaktif. Saya berkembang sebagai{" "}
+              <span className="text-cyan-400 font-semibold">Game Developer</span> dan{" "}
+              <span className="text-purple-400 font-semibold">Web Developer</span> yang fokus pada sistem modern dan pengalaman pengguna.
             </p>
 
             <p className="text-gray-400 mt-3 leading-relaxed">
-              Menggunakan <span className="text-blue-400 font-semibold">C# & Unity</span> untuk game development, serta <span className="text-blue-400 font-semibold">React, Tailwind, Node.js</span> untuk web development.
+              Saya menggunakan{" "}
+              <span className="text-cyan-400 font-semibold">C# & Unity</span> untuk game development, serta{" "}
+              <span className="text-purple-400 font-semibold">React, Tailwind CSS, Node.js</span> untuk web development.
             </p>
           </motion.div>
 
           {/* SKILLS */}
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="bg-gray-900/60 backdrop-blur-md p-6 rounded-2xl border border-gray-700"
+            variants={item}
+            whileHover={{ scale: 1.01 }}
+            className="bg-white/5 backdrop-blur-xl p-6 rounded-3xl border border-white/10"
           >
-            <h2 className="text-xl font-semibold mb-6 text-blue-400">
-              Skills
+            <h2 className="text-cyan-400 mb-4 uppercase tracking-widest text-sm">
+              Skills Overview
             </h2>
 
             {skills.map((skill, i) => (
-              <div key={i} className="mb-4">
+              <div key={i} className="mb-5">
                 <div className="flex justify-between text-sm mb-1">
                   <span>{skill.name}</span>
                   <span className="text-gray-400">{skill.level}%</span>
                 </div>
 
-                <div className="w-full bg-gray-700 h-2 rounded">
-                  <div
-                    className="bg-blue-500 h-2 rounded shadow-[0_0_10px_#3b82f6]"
-                    style={{ width: skill.level + "%" }}
+                <div className="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
+                  <motion.div
+                    initial={{ width: 0 }}
+                    whileInView={{ width: skill.level + "%" }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1 }}
+                    className="h-2 rounded-full bg-gradient-to-r from-cyan-500 to-purple-500 shadow-[0_0_15px_#22d3ee]"
                   />
                 </div>
               </div>
             ))}
           </motion.div>
 
+          {/* EDUCATION */}
+          <motion.div variants={item} className="bg-white/5 backdrop-blur-xl p-6 rounded-3xl border border-white/10">
+            <h2 className="text-purple-400 mb-4 uppercase tracking-widest text-sm">
+              Education
+            </h2>
+
+            {education.map((edu, i) => (
+              <motion.div
+                key={i}
+                whileHover={{ x: 5 }}
+                className="mb-6 border-l-2 border-cyan-500 pl-4 relative"
+              >
+                <div className="absolute -left-[6px] top-2 w-3 h-3 bg-cyan-400 rounded-full shadow-[0_0_10px_#22d3ee]" />
+                <p className="font-bold text-cyan-300">{edu.year}</p>
+                <p className="text-white font-semibold">{edu.school}</p>
+                <p className="text-gray-400 text-sm">{edu.major}</p>
+                <p className="text-gray-400 text-sm mt-1 leading-relaxed">
+                  {edu.desc}
+                </p>
+              </motion.div>
+            ))}
+          </motion.div>
+
           {/* TIMELINE */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="bg-gray-900/60 backdrop-blur-md p-6 rounded-2xl border border-gray-700"
-          >
-            <h2 className="text-xl font-semibold mb-6 text-blue-400">
+          <motion.div variants={item} className="bg-white/5 backdrop-blur-xl p-6 rounded-3xl border border-white/10">
+            <h2 className="text-purple-400 mb-4 uppercase tracking-widest text-sm">
               Journey
             </h2>
 
-            {timeline.map((item, i) => (
-              <div key={i} className="mb-4 border-l-2 border-blue-500 pl-4">
-                <p className="font-bold">{item.year}</p>
-                <p className="text-gray-400 text-sm">{item.text}</p>
-              </div>
+            {timeline.map((t, i) => (
+              <motion.div
+                key={i}
+                whileHover={{ x: 5 }}
+                className="mb-5 border-l-2 border-purple-500 pl-4 relative"
+              >
+                <div className="absolute -left-[6px] top-2 w-3 h-3 bg-purple-500 rounded-full shadow-[0_0_10px_#a855f7]" />
+                <p className="font-bold text-purple-300">{t.year}</p>
+                <p className="text-gray-400 text-sm">{t.text}</p>
+              </motion.div>
             ))}
           </motion.div>
 
           {/* PROJECT */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-            className="bg-gray-900/60 backdrop-blur-md p-6 rounded-2xl border border-gray-700"
-          >
-            <h3 className="text-lg font-semibold mb-2 text-blue-400">
-              Featured Project
-            </h3>
+          <div className="space-y-6">
+            {projects.map((p) => (
+              <Link to={`/projects/${p.id}`} key={p.id}>
+                <motion.div
+                  variants={item}
+                  whileHover={{
+                    scale: 1.04,
+                    rotateX: 3,
+                    rotateY: -3,
+                  }}
+                  className="bg-gradient-to-br from-white/5 to-transparent backdrop-blur-xl p-6 rounded-3xl border border-white/10 hover:border-cyan-400/40 transition"
+                >
+                  <h3 className="text-lg font-semibold mb-3 text-cyan-400">
+                    🚀 Featured Project
+                  </h3>
 
-            <div className="bg-gray-800 p-4 rounded-lg border border-gray-700">
-              <p className="font-semibold">Game & Web System</p>
-              <p className="text-gray-400 text-sm">
-                Kombinasi project game berbasis Unity dan sistem web untuk dashboard, API, dan automation.
-              </p>
-            </div>
-          </motion.div>
+                  <div className="bg-white/5 p-5 rounded-2xl border border-white/10">
+                    <p className="font-semibold text-lg">{p.title}</p>
+                    <p className="text-gray-400 text-sm mt-1 leading-relaxed">
+                      {p.description}
+                    </p>
+                    <div className="mt-3 text-xs text-cyan-300">
+                      Click to view details →
+                    </div>
+                  </div>
+                </motion.div>
+              </Link>
+            ))}
+          </div>
 
         </div>
-      </div>
+      </motion.div>
     </section>
   )
 }

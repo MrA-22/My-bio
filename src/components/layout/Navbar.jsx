@@ -16,7 +16,7 @@ export default function Navbar() {
 
         {/* LOGO */}
         <h1 className="text-xl font-bold text-blue-400">
-          Arif.dev
+          Mr. A Dev
         </h1>
 
         {/* DESKTOP MENU */}
