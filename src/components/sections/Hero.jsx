@@ -33,7 +33,7 @@ export default function Hero() {
       year: "2018 - 2021",
       school: "Sekolah Menengah Atas",
       major: "Jurusan MIPA",
-      desc: "Mulai mengenal logika pemrograman dan ketertarikan dalam pengembangan game dan sistem digital.",
+      desc: "mulai tertarikan dalam pengembangan game dan sistem digital.",
     },
   ]
 
@@ -146,15 +146,26 @@ export default function Hero() {
             </h1>
 
             <p className="text-gray-400 mt-5 leading-relaxed">
-              Perjalanan saya dimulai dari eksplorasi teknologi hingga membangun berbagai aplikasi interaktif. Saya berkembang sebagai{" "}
-              <span className="text-cyan-400 font-semibold">Game Developer</span> dan{" "}
-              <span className="text-purple-400 font-semibold">Web Developer</span> yang fokus pada sistem modern dan pengalaman pengguna.
+              Perjalanan saya di dunia teknologi berawal dari rasa penasaran sederhana sejak masa SMA—tentang bagaimana sebuah ide dapat diwujudkan menjadi aplikasi dan game yang interaktif dan dapat dirasakan oleh pengguna secara langsung. Dari proses tersebut, saya terus berkembang membangun fondasi sebagai developer yang menggabungkan logika, desain, dan pengalaman pengguna menjadi satu kesatuan yang bermakna.
             </p>
 
             <p className="text-gray-400 mt-3 leading-relaxed">
-              Saya menggunakan{" "}
-              <span className="text-cyan-400 font-semibold">C# & Unity</span> untuk game development, serta{" "}
-              <span className="text-purple-400 font-semibold">React, Tailwind CSS, Node.js</span> untuk web development.
+              Saya berfokus pada pengembangan sebagai{" "}
+              <span className="text-cyan-400 font-semibold">Game Developer</span> dan{" "}
+              <span className="text-purple-400 font-semibold">Web Developer</span>, dengan pendekatan yang menitikberatkan pada sistem yang terstruktur dan pengalaman pengguna yang optimal. Dalam pengembangan game, saya menggunakan{" "}
+              <span className="text-cyan-400 font-semibold">C# & Unity</span> untuk merancang mekanik gameplay, sistem interaksi, serta pengalaman visual yang imersif, termasuk eksplorasi Virtual Reality (VR) dan Unreal Engine untuk pengalaman 3D yang lebih realistis.
+            </p>
+
+            <p className="text-gray-400 mt-3 leading-relaxed">
+              Di sisi web, saya memulai dengan{" "}
+              <span className="text-purple-400 font-semibold">HTML dan CSS</span>, kemudian berkembang menggunakan{" "}
+              <span className="text-purple-400 font-semibold">JavaScript</span>, dan saat ini berfokus pada{" "}
+              <span className="text-purple-400 font-semibold">React dan Tailwind CSS</span> untuk membangun antarmuka yang modern, responsif, dan terstruktur. Saya juga memiliki pemahaman dasar tentang{" "}
+              <span className="text-purple-400 font-semibold">Python dan Node.js</span> dalam pengembangan backend dan logika sistem.
+            </p>
+
+            <p className="text-gray-400 mt-3 leading-relaxed">
+              Saat ini, saya terus berkembang melalui berbagai proyek yang saya bangun sendiri, sambil mengeksplorasi teknologi baru dan meningkatkan kemampuan dalam menciptakan solusi digital yang tidak hanya berfungsi dengan baik, tetapi juga memberikan pengalaman yang intuitif, imersif, dan bermakna bagi pengguna.
             </p>
           </motion.div>
 
