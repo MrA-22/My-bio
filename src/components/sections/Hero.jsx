@@ -1,26 +1,39 @@
 import { useNavigate, Link } from "react-router-dom"
 import profileImg from "../../assets/profile.jpg"
 import { motion } from "framer-motion"
+import { TypeAnimation } from "react-type-animation"
+import { useEffect, useState } from "react"
 
 export default function Hero() {
   const navigate = useNavigate()
 
+  const [mouse, setMouse] = useState({ x: 0, y: 0 })
+
+  // Cursor glow follow mouse
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setMouse({ x: e.clientX, y: e.clientY })
+    }
+    window.addEventListener("mousemove", handleMouseMove)
+    return () => window.removeEventListener("mousemove", handleMouseMove)
+  }, [])
+
+  // Floating particles
+  const particles = Array.from({ length: 25 })
+
   const skills = [
-  { name: "C#", level: 80 },
-  { name: "Unity Engine", level: 75 },
-  { name: "Gameplay Systems", level: 80 },
-
-  { name: "JavaScript", level: 65 },
-  { name: "React", level: 60 },
-  { name: "Tailwind CSS", level: 60 },
-  { name: "HTML", level: 85 },
-  { name: "CSS", level: 85 },
-
-  { name: "Node.js", level: 65 },
-  { name: "Python", level: 75 },
-
-  { name: "API Integration", level: 70 },
-]
+    { name: "C#", level: 80 },
+    { name: "Unity Engine", level: 75 },
+    { name: "Gameplay Systems", level: 80 },
+    { name: "JavaScript", level: 65 },
+    { name: "React", level: 60 },
+    { name: "Tailwind CSS", level: 60 },
+    { name: "HTML", level: 85 },
+    { name: "CSS", level: 85 },
+    { name: "Node.js", level: 65 },
+    { name: "Python", level: 75 },
+    { name: "API Integration", level: 70 },
+  ]
 
   const timeline = [
     { year: "2021", text: "Mulai belajar coding" },
@@ -55,9 +68,7 @@ export default function Hero() {
   const container = {
     hidden: {},
     show: {
-      transition: {
-        staggerChildren: 0.15,
-      },
+      transition: { staggerChildren: 0.15 },
     },
   }
 
@@ -69,7 +80,29 @@ export default function Hero() {
   return (
     <section className="min-h-screen flex items-center justify-center px-6 py-20 bg-black text-white relative overflow-hidden">
 
-      {/* Neon Glow Background */}
+      {/* 🌌 Cursor Glow */}
+      <div
+        className="pointer-events-none fixed w-72 h-72 rounded-full blur-3xl opacity-30 bg-cyan-400"
+        style={{
+          left: mouse.x - 150,
+          top: mouse.y - 150,
+        }}
+      />
+
+      {/* 🌌 Floating Particles */}
+      {particles.map((_, i) => (
+        <div
+          key={i}
+          className="absolute w-1 h-1 bg-cyan-400 rounded-full opacity-40 animate-pulse"
+          style={{
+            top: `${Math.random() * 100}%`,
+            left: `${Math.random() * 100}%`,
+            animationDuration: `${2 + Math.random() * 3}s`,
+          }}
+        />
+      ))}
+
+      {/* Background Glow */}
       <div className="absolute w-[500px] h-[500px] bg-cyan-500/20 blur-[140px] rounded-full top-10 left-10 animate-pulse"></div>
       <div className="absolute w-[400px] h-[400px] bg-purple-500/20 blur-[140px] rounded-full bottom-10 right-10 animate-pulse"></div>
 
@@ -80,13 +113,16 @@ export default function Hero() {
         className="max-w-6xl w-full grid lg:grid-cols-3 gap-10 z-10"
       >
 
-        {/* PROFILE */}
+        {/* PROFILE (DEPTH + GLASS + NEON) */}
         <motion.div
           variants={item}
-          whileHover={{ rotateY: 8, rotateX: 5, scale: 1.03 }}
-          className="lg:col-span-1 bg-white/5 backdrop-blur-xl p-6 rounded-3xl border border-white/10 shadow-[0_0_40px_rgba(0,255,255,0.1)] transition-transform duration-300"
+          whileHover={{ rotateY: 10, rotateX: 8, scale: 1.04 }}
+          className="lg:col-span-1 relative bg-black/40 backdrop-blur-2xl p-6 rounded-3xl border border-cyan-500/20 shadow-[0_0_60px_rgba(34,211,238,0.2)] transition-transform duration-300"
         >
-          <div className="flex justify-center">
+          {/* Depth layer highlight */}
+          <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-cyan-500/10 to-purple-500/10 opacity-50 pointer-events-none" />
+
+          <div className="flex justify-center relative z-10">
             <img
               src={profileImg}
               alt="profile"
@@ -94,31 +130,31 @@ export default function Hero() {
             />
           </div>
 
-          <div className="mt-4 text-center">
+          <div className="mt-4 text-center relative z-10">
             <span className="bg-green-500/20 text-green-400 text-xs px-4 py-1 rounded-full border border-green-500 shadow-[0_0_10px_green]">
               🟢 Available for work
             </span>
           </div>
 
-          <h1 className="text-3xl font-bold mt-4 text-center tracking-wide">
+          <h1 className="text-3xl font-bold mt-4 text-center tracking-wide relative z-10">
             Arif Rasyid
           </h1>
 
-          <p className="text-cyan-400 text-sm mt-1 text-center">
+          <p className="text-cyan-400 text-sm mt-1 text-center relative z-10">
             Game & Web Developer
           </p>
 
-          <div className="mt-6 text-left space-y-2 text-sm text-gray-300">
+          <div className="mt-6 text-left space-y-2 text-sm text-gray-300 relative z-10">
             <p><span className="text-gray-400">Role:</span> Developer</p>
             <p><span className="text-gray-400">Focus:</span> Game & Web Systems</p>
             <p><span className="text-gray-400">Location:</span> Indonesia</p>
             <p><span className="text-gray-400">Status:</span> Student / Developer</p>
           </div>
 
-          <div className="mt-6 flex flex-col gap-3">
+          <div className="mt-6 flex flex-col gap-3 relative z-10">
             <button
               onClick={() => navigate("/projects")}
-              className="bg-gradient-to-r from-cyan-500 to-blue-500 py-2 rounded-xl hover:scale-105 transition shadow-[0_0_20px_#22d3ee]"
+              className="bg-gradient-to-r from-cyan-500 to-blue-500 py-2 rounded-xl hover:scale-105 transition shadow-[0_0_25px_#22d3ee]"
             >
               View Projects
             </button>
@@ -145,38 +181,56 @@ export default function Hero() {
 
           {/* INTRO */}
           <motion.div variants={item}>
-            <p className="text-cyan-400 mb-2">👋 Hello, I'm</p>
+            <p className="text-cyan-400 mb-3 tracking-widest uppercase text-xs">
+              👋 Welcome to my digital space
+            </p>
 
-            <h1 className="text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
+            <TypeAnimation
+              sequence={[
+                "Game Developer 🎮",
+                1500,
+                "Web Developer 🌐",
+                1500,
+                "VR Enthusiast 🥽",
+                1500,
+                "Problem Solver ⚡",
+                1500,
+              ]}
+              speed={50}
+              repeat={Infinity}
+              className="text-lg md:text-xl text-gray-300 mt-2"
+            />
+            <h1 className="text-5xl md:text-6xl font-extrabold leading-tight bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-500 bg-clip-text text-transparent">
               Arif Rasyid
             </h1>
 
-            <p className="text-gray-400 mt-5 leading-relaxed">
-              Perjalanan saya di dunia teknologi berawal dari rasa penasaran sederhana sejak masa SMA—tentang bagaimana sebuah ide dapat diwujudkan menjadi aplikasi dan game yang interaktif dan dapat dirasakan oleh pengguna secara langsung. Dari proses tersebut, saya terus berkembang membangun fondasi sebagai developer yang menggabungkan logika, desain, dan pengalaman pengguna menjadi satu kesatuan yang bermakna.
+            <p className="text-gray-300 mt-6 leading-relaxed text-base md:text-lg">
+              Perjalanan saya di dunia teknologi berawal dari rasa penasaran sejak masa SMA tentang bagaimana sebuah ide dapat diwujudkan menjadi aplikasi dan game interaktif. Dari sana, saya berkembang menjadi developer yang tidak hanya fokus pada kode, tetapi juga pada{" "}
+              <span className="text-cyan-400 font-semibold">experience</span> dan{" "}
+              <span className="text-purple-400 font-semibold">impact</span>.
             </p>
 
-            <p className="text-gray-400 mt-3 leading-relaxed">
-              Saya berfokus pada pengembangan sebagai{" "}
+            <p className="text-gray-300 mt-4 leading-relaxed text-base md:text-lg">
+              Saya membangun solusi sebagai{" "}
               <span className="text-cyan-400 font-semibold">Game Developer</span> dan{" "}
-              <span className="text-purple-400 font-semibold">Web Developer</span>, dengan pendekatan yang menitikberatkan pada sistem yang terstruktur dan pengalaman pengguna yang optimal. Dalam pengembangan game, saya menggunakan{" "}
-              <span className="text-cyan-400 font-semibold">C# & Unity</span> untuk merancang mekanik
-              gameplay, sistem interaksi, serta pengalaman visual yang imersif,
-              termasuk eksplorasi
-              <span className="text-cyan-400 font-semibold"> Virtual Reality (VR) </span>
-              dan
-              <span className="text-cyan-400 font-semibold"> Unreal Engine </span> untuk pengalaman 3D yang lebih realistis.
+              <span className="text-purple-400 font-semibold">Web Developer</span>, dengan fokus pada arsitektur sistem yang rapi, scalable, dan user-centered. Dalam game development, saya menggunakan{" "}
+              <span className="text-cyan-400 font-semibold">C# & Unity</span>, serta mengeksplorasi{" "}
+              <span className="text-cyan-400 font-semibold">Virtual Reality (VR)</span> dan{" "}
+              <span className="text-cyan-400 font-semibold">Unreal Engine</span> untuk membangun pengalaman 3D yang lebih imersif.
             </p>
 
-            <p className="text-gray-400 mt-3 leading-relaxed">
-              Di sisi web, saya memulai dengan{" "}
-              <span className="text-purple-400 font-semibold">HTML dan CSS</span>, kemudian berkembang menggunakan{" "}
-              <span className="text-purple-400 font-semibold">JavaScript</span>, dan saat ini berfokus pada{" "}
-              <span className="text-purple-400 font-semibold">React dan Tailwind CSS</span> untuk membangun antarmuka yang modern, responsif, dan terstruktur. Saya juga memiliki pemahaman dasar tentang{" "}
-              <span className="text-purple-400 font-semibold">Python dan Node.js</span> dalam pengembangan backend dan logika sistem.
+            <p className="text-gray-300 mt-4 leading-relaxed text-base md:text-lg">
+              Di sisi web, saya mengembangkan antarmuka modern menggunakan{" "}
+              <span className="text-purple-400 font-semibold">React & Tailwind CSS</span>, didukung dengan{" "}
+              <span className="text-purple-400 font-semibold">Node.js</span> dan{" "}
+              <span className="text-purple-400 font-semibold">Python</span> untuk logic dan backend integration.
             </p>
 
-            <p className="text-gray-400 mt-3 leading-relaxed">
-              Saat ini, saya terus berkembang melalui berbagai proyek yang saya bangun sendiri, sambil mengeksplorasi teknologi baru dan meningkatkan kemampuan dalam menciptakan solusi digital yang tidak hanya berfungsi dengan baik, tetapi juga memberikan pengalaman yang intuitif, imersif, dan bermakna bagi pengguna.
+            <p className="text-gray-300 mt-4 leading-relaxed text-base md:text-lg">
+              Saat ini saya terus membangun berbagai proyek, mengeksplorasi teknologi baru, dan mengasah kemampuan untuk menciptakan solusi digital yang tidak hanya fungsional, tetapi juga memberikan pengalaman yang{" "}
+              <span className="text-cyan-400 font-semibold">intuitif</span>,{" "}
+              <span className="text-purple-400 font-semibold">immersive</span>, dan{" "}
+              <span className="text-pink-400 font-semibold">memorable</span>.
             </p>
           </motion.div>
 
