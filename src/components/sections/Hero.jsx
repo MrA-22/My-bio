@@ -1,12 +1,13 @@
 import { useNavigate, Link } from "react-router-dom"
 import profileImg from "../../assets/profile.jpg"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { TypeAnimation } from "react-type-animation"
 import { useEffect, useState } from "react"
 
+
 export default function Hero() {
   const navigate = useNavigate()
-
+  const [showCV, setShowCV] = useState(false)
   const [mouse, setMouse] = useState({ x: 0, y: 0 })
 
   // Cursor glow follow mouse
@@ -68,13 +69,30 @@ export default function Hero() {
   const container = {
     hidden: {},
     show: {
-      transition: { staggerChildren: 0.15 },
+      transition: {
+        staggerChildren: 0.12,
+        delayChildren: 0.2,
+        exit: { opacity: 0, y: -40, filter: "blur(8px)" },
+      },
     },
   }
 
   const item = {
     hidden: { opacity: 0, y: 40, scale: 0.95 },
-    show: { opacity: 1, y: 0, scale: 1 },
+    show: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut",
+      },
+    },
+  }
+
+  const pageTransition = {
+    duration: 0.45,
+    ease: "easeInOut",
   }
 
   return (
@@ -110,6 +128,7 @@ export default function Hero() {
         variants={container}
         initial="hidden"
         animate="show"
+        transition={pageTransition}
         className="max-w-6xl w-full grid lg:grid-cols-3 gap-10 z-10"
       >
 
@@ -166,13 +185,22 @@ export default function Hero() {
               Contact Me
             </button>
 
+            {/* Download CV */}
             <a
-              href="/document/ArifResume.pdf"
+              href="/document/Arif Rasyid Game & Web Developer.pdf"
               download
-              className="bg-white/10 py-2 rounded-xl border border-white/10 hover:border-cyan-400 text-center transition hover:bg-white/5"
+              className="bg-white/10 px-5 py-2 rounded-xl border border-white/10 hover:border-cyan-400 text-center transition hover:bg-white/5"
             >
               Download CV
             </a>
+
+            {/* Optional: View CV */}
+            <button
+              onClick={() => setShowCV(true)}
+              className="bg-gradient-to-r from-cyan-500 to-purple-500 py-2 rounded-xl hover:scale-105 transition shadow-[0_0_25px_#22d3ee]"
+            >
+              View CV
+            </button>
           </div>
         </motion.div>
 
@@ -339,6 +367,36 @@ export default function Hero() {
 
         </div>
       </motion.div>
+      <AnimatePresence>
+        {showCV && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-xl"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              initial={{ scale: 0.8, y: 50 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.8, y: 50 }}
+              className="relative w-[90%] h-[90%] bg-black/60 rounded-2xl border border-white/10 overflow-hidden"
+            >
+              <button
+                onClick={() => setShowCV(false)}
+                className="absolute top-3 right-3 bg-black/60 px-3 py-1 rounded-lg z-10"
+              >
+                ✕
+              </button>
+
+              <iframe
+                src="/document/Arif Rasyid Game & Web Developer.pdf"
+                className="w-full h-full"
+                title="CV Preview"
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   )
 }
