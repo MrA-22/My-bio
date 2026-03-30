@@ -55,6 +55,7 @@ export default function ProjectDetail() {
             desc: "Aplikasi VR untuk desain rumah interaktif.",
             images: [
                 { url: "/images/VrHD/mainmenu.png", desc: "MainMenu VR Home Design" },
+                { url: "/images/VrHD/Tutorial.png", desc: "Tutorial Scene VR Home Design" },
             ],
             videos: [
                 {
