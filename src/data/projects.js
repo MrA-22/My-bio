@@ -34,20 +34,8 @@ export const projectsData = [
     section: "web",
     badge: "📱 Android Kotlin App",
     uiClone: "kasir-pro",
+    apkUrl: "https://github.com/MrA-22/Kasir_pro/releases/download/KasirProNew/Kasir.Pro.apk",
     images: [],
-    videos: [],
-  },
-  {
-    id: "web-sis",
-    name: "Web SIS",
-    desc: "Web Sistem Informasi Sekolah",
-    section: "web",
-    images: [
-      { url: "/images/WebSIS/dashboard.png", desc: "Dashboard Sekolah" },
-      { url: "/images/WebSIS/adminpanel.png", desc: "Admin panel" },
-      { url: "/images/WebSIS/loginaprt.png", desc: "Login admin" },
-      { url: "/images/WebSIS/profilguru.png", desc: "Profil guru" },
-    ],
     videos: [],
   },
   {

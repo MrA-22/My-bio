@@ -89,17 +89,33 @@ export default function ProjectDetail() {
                     {project.desc}
                 </p>
 
-                {project.botNumber && (
-                    <motion.a
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        href={`https://wa.me/${project.botNumber}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-block mt-3 px-5 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-purple-500 shadow-[0_0_20px_rgba(34,211,238,0.3)]"
-                    >
-                        Try My Bot
-                    </motion.a>
+                {(project.botNumber || project.apkUrl) && (
+                    <div className="flex flex-wrap items-center gap-3 mt-3">
+                        {project.botNumber && (
+                            <motion.a
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                href={`https://wa.me/${project.botNumber}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-block px-5 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-purple-500 shadow-[0_0_20px_rgba(34,211,238,0.3)]"
+                            >
+                                Try My Bot
+                            </motion.a>
+                        )}
+
+                        {project.apkUrl && (
+                            <motion.a
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                href={project.apkUrl}
+                                download
+                                className="inline-block px-5 py-2 rounded-lg bg-white/10 hover:bg-white/20 border border-cyan-400/40 text-cyan-300 text-sm font-semibold transition"
+                            >
+                                ⬇ Download APK
+                            </motion.a>
+                        )}
+                    </div>
                 )}
             </div>
 
