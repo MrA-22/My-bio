@@ -1,0 +1,255 @@
+import { useState, useEffect } from "react"
+import emailjs from "@emailjs/browser"
+import { motion } from "framer-motion"
+
+export default function Contact() {
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    message: "",
+  })
+
+  const [mouse, setMouse] = useState({ x: 0, y: 0 })
+
+  // Cursor glow follow mouse
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setMouse({ x: e.clientX, y: e.clientY })
+    }
+    window.addEventListener("mousemove", handleMouseMove)
+    return () => window.removeEventListener("mousemove", handleMouseMove)
+  }, [])
+
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    })
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    emailjs
+      .send(
+        "service_mr4",
+        "template_diwbyo2",
+        {
+          name: form.name,
+          email: form.email,
+          message: form.message,
+        },
+        "XY0qy8JKTPjFN75-e"
+      )
+      .then(() => {
+        alert("Message sent successfully!")
+        setForm({ name: "", email: "", message: "" })
+      })
+      .catch((error) => {
+        console.error(error)
+        alert("Failed to send message")
+      })
+  }
+
+  // Page transition
+  const container = {
+    hidden: { opacity: 0, y: 40, filter: "blur(8px)" },
+    show: {
+      opacity: 1,
+      y: 0,
+      filter: "blur(0px)",
+      transition: {
+        staggerChildren: 0.12,
+        delayChildren: 0.2,
+        duration: 0.5,
+      },
+    },
+    exit: {
+      opacity: 0,
+      y: -40,
+      filter: "blur(8px)",
+      transition: { duration: 0.3 },
+    },
+  }
+
+  // Letter animation
+  const letterVariant = {
+    hidden: { opacity: 0, y: 20, filter: "blur(6px)" },
+    visible: (i) => ({
+      opacity: 1,
+      y: 0,
+      filter: "blur(0px)",
+      transition: {
+        delay: i * 0.03,
+        duration: 0.4,
+      },
+    }),
+  }
+
+  const AnimatedText = ({ text }) => {
+    return (
+      <span className="inline-block">
+        {text.split("").map((char, i) => (
+          <motion.span
+            key={i}
+            custom={i}
+            variants={letterVariant}
+            initial="hidden"
+            animate="visible"
+            className="inline-block"
+          >
+            {char}
+          </motion.span>
+        ))}
+      </span>
+    )
+  }
+
+  return (
+    <motion.div
+      variants={container}
+      initial="hidden"
+      animate="show"
+      exit="exit"
+      className="min-h-[100dvh] px-4 md:px-6 py-14 md:py-20 flex items-center md:items-center justify-center bg-black text-white relative overflow-x-hidden overflow-y-auto"
+    >
+      {/* 🌌 Cursor Glow (disable di mobile) */}
+      <div
+        className="pointer-events-none fixed w-72 h-72 rounded-full blur-3xl opacity-30 bg-cyan-400 hidden md:block"
+        style={{
+          left: mouse.x - 150,
+          top: mouse.y - 150,
+        }}
+      />
+
+      {/* 🌌 Floating Particles */}
+      {Array.from({ length: 12 }).map((_, i) => (
+        <div
+          key={i}
+          className="absolute w-1 h-1 bg-cyan-400 rounded-full opacity-30 animate-pulse"
+          style={{
+            top: `${Math.random() * 100}%`,
+            left: `${Math.random() * 100}%`,
+            animationDuration: `${2 + Math.random() * 3}s`,
+          }}
+        />
+      ))}
+
+      {/* Background Glow */}
+      <div className="absolute w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-cyan-500/20 blur-[120px] rounded-full top-10 left-10"></div>
+      <div className="absolute w-[250px] md:w-[400px] h-[250px] md:h-[400px] bg-purple-500/20 blur-[120px] rounded-full bottom-10 right-10"></div>
+
+      <div className="max-w-6xl w-full mx-auto grid md:grid-cols-2 gap-8 md:gap-10 z-10">
+
+        {/* LEFT */}
+        <motion.div
+          initial={{ opacity: 0, x: -40 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.3 }}
+          className="space-y-6"
+        >
+          <div>
+            <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
+              <AnimatedText text="Contact Me" />
+            </h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+              className="text-gray-400 mt-3 text-sm md:text-base"
+            >
+              Jika kamu ingin bekerja sama atau berdiskusi, silakan hubungi saya.
+            </motion.p>
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.6 }}
+            className="relative bg-black/40 backdrop-blur-xl p-5 md:p-6 rounded-2xl border border-cyan-500/20 space-y-3"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-purple-500/10 rounded-2xl" />
+
+            <p><span className="text-gray-400">Email:</span> ariflgln@email.com</p>
+            <p><span className="text-gray-400">Location:</span> Indonesia</p>
+            <p><span className="text-gray-400">Role:</span> Developer</p>
+          </motion.div>
+
+          <div className="flex flex-wrap gap-3">
+            {[
+              { name: "GitHub", url: "https://github.com/MrA-22" },
+              { name: "Facebook", url: "https://www.facebook.com/Ruang.saya1/" },
+              { name: "Instagram", url: "https://www.instagram.com/bear_bucin" },
+              { name: "WhatsApp", url: "https://wa.me/6281344195326" },
+            ].map((item, i) => (
+              <motion.a
+                key={i}
+                whileTap={{ scale: 0.95 }}
+                href={item.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-3 py-2 text-sm bg-black/40 border border-white/10 rounded-lg hover:border-cyan-400 transition"
+              >
+                {item.name}
+              </motion.a>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* RIGHT */}
+        <motion.div
+          initial={{ opacity: 0, x: 40 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.4 }}
+          className="relative bg-black/40 backdrop-blur-2xl p-5 md:p-8 rounded-2xl border border-cyan-500/20"
+        >
+          <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-purple-500/10 rounded-2xl" />
+
+          <h2 className="text-xl md:text-2xl font-semibold mb-5 bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
+            <AnimatedText text="Send Message" />
+          </h2>
+
+          <form onSubmit={handleSubmit} className="space-y-4 relative z-10">
+
+            <input
+              type="text"
+              name="name"
+              value={form.name}
+              onChange={handleChange}
+              placeholder="Your name"
+              className="w-full p-3 rounded-lg bg-black/40 border border-white/10 focus:border-cyan-400 outline-none text-sm"
+            />
+
+            <input
+              type="email"
+              name="email"
+              value={form.email}
+              onChange={handleChange}
+              placeholder="Your email"
+              className="w-full p-3 rounded-lg bg-black/40 border border-white/10 focus:border-cyan-400 outline-none text-sm"
+            />
+
+            <textarea
+              name="message"
+              value={form.message}
+              onChange={handleChange}
+              rows="4"
+              placeholder="Write your message..."
+              className="w-full p-3 rounded-lg bg-black/40 border border-white/10 focus:border-cyan-400 outline-none text-sm"
+            />
+
+            <button
+              type="submit"
+              className="w-full py-3 rounded-lg bg-gradient-to-r from-cyan-500 to-purple-500 font-semibold"
+            >
+              Send Message
+            </button>
+
+          </form>
+        </motion.div>
+
+      </div>
+    </motion.div>
+  )
+}
