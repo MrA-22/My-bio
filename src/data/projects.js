@@ -32,7 +32,7 @@ export const projectsData = [
     name: "Kasir Pro",
     desc: "aplikasi kasir profesional untuk menunjang usaha anda.",
     section: "web",
-    badge: "📱 Android UI Clone",
+    badge: "📱 Android Kotlin App",
     uiClone: "kasir-pro",
     images: [],
     videos: [],
