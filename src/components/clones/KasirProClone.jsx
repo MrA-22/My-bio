@@ -1,23 +1,22 @@
 import { useState, useMemo } from "react"
 
-const SCREENSHOTS = [
-  {
-    src: "/images/kasir-pro/Screenshot_20261123-234912_Kasir_Pro_cb6b542b.png",
-    label: "Tampilan Aplikasi Kasir Pro",
-  },
-  {
-    src: "/images/kasir-pro/image_8dee1a7b.png",
-    label: "Preview Layar 2",
-  },
-  {
-    src: "/images/kasir-pro/image_d3615c3d.png",
-    label: "Preview Layar 3",
-  },
-  {
-    src: "/images/kasir-pro/image_d7d1cc08.png",
-    label: "Preview Layar 4",
-  },
+const RAW_SCREENSHOT_FILES = [
+  "Screenshot_20261124-101111_Kasir Pro.png",
+  "Screenshot_20261124-101114_Kasir Pro.png",
+  "Screenshot_20261124-101116_Kasir Pro.png",
+  "Screenshot_20261124-101118_Kasir Pro.png",
+  "Screenshot_20261124-101122_Kasir Pro.png",
+  "Screenshot_20261124-101125_Kasir Pro.png",
+  "Screenshot_20261124-101134_Kasir Pro.png",
+  "Screenshot_20261124-101144_Kasir Pro.png",
+  "Screenshot_20261124-101148_Kasir Pro.png",
+  "Screenshot_20261124-101208_Kasir Pro.png",
 ]
+
+const SCREENSHOTS = RAW_SCREENSHOT_FILES.map((fileName, idx) => ({
+  src: `/images/kasir-pro/${encodeURIComponent(fileName)}`,
+  label: `Screen ${idx + 1} • ${fileName.replace(".png", "")}`,
+}))
 
 const INITIAL_PRODUCTS = [
   { id: 1, name: "Kopi Susu Gula Aren", category: "Minuman", price: 18000 },
@@ -27,7 +26,7 @@ const INITIAL_PRODUCTS = [
 ]
 
 export default function KasirProClone() {
-  const [screen, setScreen] = useState("screenshots") // "screenshots" | "dashboard" | "kasir" | "hitung" | "menu" | "laporan" | "settings"
+  const [screen, setScreen] = useState("screenshots")
   const [activeShotIdx, setActiveShotIdx] = useState(0)
 
   const [products, setProducts] = useState(INITIAL_PRODUCTS)
@@ -37,22 +36,18 @@ export default function KasirProClone() {
   const [showQris, setShowQris] = useState(false)
   const [receipt, setReceipt] = useState(null)
 
-  // HitungCepatScreen state
   const [quickTotal, setQuickTotal] = useState("")
   const [quickCash, setQuickCash] = useState("")
 
-  // MenuManagementScreen state
   const [menuName, setMenuName] = useState("")
   const [menuPrice, setMenuPrice] = useState("")
   const [menuCategory, setMenuCategory] = useState("Makanan")
 
-  // LaporanScreen state
   const [transactions, setTransactions] = useState([
     { id: "TRX-101", time: "09:10", total: 40000, method: "Tunai" },
     { id: "TRX-102", time: "09:35", total: 22000, method: "QRIS" },
   ])
 
-  // SettingsScreen state
   const [storeName, setStoreName] = useState("KasirPro Store")
   const [printerReady, setPrinterReady] = useState(true)
   const [voiceEnabled, setVoiceEnabled] = useState(true)
@@ -127,7 +122,7 @@ export default function KasirProClone() {
   const quickChange = Math.max((Number(quickCash) || 0) - (Number(quickTotal) || 0), 0)
 
   const topTabs = [
-    { id: "screenshots", label: "Galeri Asli" },
+    { id: "screenshots", label: "Galeri (10)" },
     { id: "dashboard", label: "Dashboard" },
     { id: "kasir", label: "Kasir" },
     { id: "hitung", label: "Hitung Cepat" },
@@ -172,22 +167,45 @@ export default function KasirProClone() {
 
       {/* Area Isi Layar */}
       <div className="flex-1 p-3 overflow-y-auto space-y-3">
-        {/* 1. GALERI SCREENSHOT ASLI DARI ZIP */}
         {screen === "screenshots" && (
           <div className="space-y-2.5">
             <div className="rounded-xl overflow-hidden border border-white/10 bg-black">
               <img
                 src={SCREENSHOTS[activeShotIdx].src}
                 alt={SCREENSHOTS[activeShotIdx].label}
-                className="w-full h-[380px] object-contain bg-zinc-950"
+                className="w-full h-[360px] object-contain bg-zinc-950"
               />
             </div>
 
-            <p className="text-[11px] text-gray-300 text-center font-medium">
-              {SCREENSHOTS[activeShotIdx].label}
-            </p>
+            <div className="flex items-center justify-between text-[10px] text-gray-300">
+              <button
+                type="button"
+                onClick={() =>
+                  setActiveShotIdx((prev) =>
+                    prev === 0 ? SCREENSHOTS.length - 1 : prev - 1
+                  )
+                }
+                className="px-2 py-1 rounded bg-white/10 hover:bg-white/20"
+              >
+                ← Prev
+              </button>
+              <span className="truncate px-2 font-medium">
+                {activeShotIdx + 1} / {SCREENSHOTS.length}
+              </span>
+              <button
+                type="button"
+                onClick={() =>
+                  setActiveShotIdx((prev) =>
+                    prev === SCREENSHOTS.length - 1 ? 0 : prev + 1
+                  )
+                }
+                className="px-2 py-1 rounded bg-white/10 hover:bg-white/20"
+              >
+                Next →
+              </button>
+            </div>
 
-            <div className="grid grid-cols-4 gap-1.5">
+            <div className="grid grid-cols-5 gap-1.5">
               {SCREENSHOTS.map((shot, idx) => (
                 <button
                   key={shot.src}
@@ -202,7 +220,7 @@ export default function KasirProClone() {
                   <img
                     src={shot.src}
                     alt={shot.label}
-                    className="w-full h-12 object-cover rounded"
+                    className="w-full h-11 object-cover rounded"
                   />
                 </button>
               ))}
@@ -210,7 +228,6 @@ export default function KasirProClone() {
           </div>
         )}
 
-        {/* 2. DASHBOARD SCREEN */}
         {screen === "dashboard" && (
           <div className="space-y-2.5">
             <div className="p-3 rounded-xl bg-gradient-to-br from-cyan-500/15 to-purple-500/15 border border-white/10">
@@ -260,7 +277,6 @@ export default function KasirProClone() {
           </div>
         )}
 
-        {/* 3. KASIR SCREEN + RECEIPT / QRIS / CHANGE POPUP */}
         {screen === "kasir" && (
           <div className="space-y-2.5">
             <div className="flex gap-1.5 overflow-x-auto">
@@ -393,7 +409,6 @@ export default function KasirProClone() {
           </div>
         )}
 
-        {/* 4. HITUNG CEPAT SCREEN */}
         {screen === "hitung" && (
           <div className="space-y-2.5">
             <p className="font-semibold text-cyan-400">HitungCepatScreen</p>
@@ -420,7 +435,6 @@ export default function KasirProClone() {
           </div>
         )}
 
-        {/* 5. MENU MANAGEMENT SCREEN */}
         {screen === "menu" && (
           <form onSubmit={handleAddMenu} className="space-y-2.5">
             <p className="font-semibold text-cyan-400">MenuManagementScreen</p>
@@ -456,7 +470,6 @@ export default function KasirProClone() {
           </form>
         )}
 
-        {/* 6. LAPORAN SCREEN */}
         {screen === "laporan" && (
           <div className="space-y-2.5">
             <div className="p-3 rounded-xl bg-white/5 border border-white/10">
@@ -484,7 +497,6 @@ export default function KasirProClone() {
           </div>
         )}
 
-        {/* 7. SETTINGS SCREEN */}
         {screen === "settings" && (
           <div className="space-y-2.5">
             <p className="font-semibold text-cyan-400">SettingsScreen</p>
