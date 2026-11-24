@@ -29,8 +29,8 @@ export const projectsData = [
   },
   {
     id: "android-app-demo",
-    name: "Android App Demo",
-    desc: "Aplikasi Android yang dapat dijalankan langsung di browser melalui emulator Appetize.",
+    name: "Kasir Pro",
+    desc: "aplikasi kasir profesional untuk menunjang usaha anda.",
     section: "web",
     badge: "📱 Live Android App",
     appetizeUrl:
