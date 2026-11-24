@@ -59,7 +59,7 @@ export default function ProjectDetail() {
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             exit={{ opacity: 0, y: -40 }}
             transition={{ duration: 0.5 }}
-            className="min-h-screen px-6 py-20 max-w-5xl mx-auto text-white space-y-10"
+            className="min-h-screen px-6 pt-28 pb-20 max-w-5xl mx-auto text-white space-y-10"
         >
             {/* NAV BACK */}
             <div>
