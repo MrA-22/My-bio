@@ -2,6 +2,7 @@ import { useParams, Link } from "react-router-dom"
 import { motion } from "framer-motion"
 import { projectsData } from "../data/projects"
 import LiveWebPreview from "../components/clones/LiveWebPreview"
+import AppetizePreview from "../components/clones/AppetizePreview"
 
 export default function ProjectDetail() {
     const { id } = useParams()
@@ -108,6 +109,16 @@ export default function ProjectDetail() {
                         🌐 Live Demo
                     </h2>
                     <LiveWebPreview url={project.demoUrl} title={project.name} />
+                </div>
+            )}
+
+            {/* 📱 LIVE ANDROID EMULATOR (APPETIZE) */}
+            {project.appetizeUrl && (
+                <div className="space-y-4">
+                    <h2 className="text-lg font-semibold text-cyan-400 uppercase tracking-widest">
+                        📱 Interactive Android Demo
+                    </h2>
+                    <AppetizePreview url={project.appetizeUrl} title={project.name} />
                 </div>
             )}
 
