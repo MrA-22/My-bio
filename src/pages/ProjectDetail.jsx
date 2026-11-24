@@ -139,6 +139,40 @@ export default function ProjectDetail() {
                 </div>
             )}
 
+            {/* 🖼️ SCREENSHOTS (JIKA ADA) */}
+            {project.images && project.images.length > 0 && (
+                <div className="space-y-6">
+                    <h2 className="text-lg font-semibold text-cyan-400 uppercase tracking-widest">
+                        🖼️ Screenshots
+                    </h2>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        {project.images.map((img, i) => (
+                            <motion.div
+                                key={i}
+                                initial={{ opacity: 0, y: 25, filter: "blur(8px)" }}
+                                whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.45 }}
+                                className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-[0_0_30px_rgba(34,211,238,0.1)]"
+                            >
+                                <img
+                                    src={img.url}
+                                    alt={img.desc || `${project.name} screenshot ${i + 1}`}
+                                    className="w-full h-56 object-cover"
+                                />
+
+                                {img.desc && (
+                                    <p className="p-3 text-xs text-gray-400 text-center">
+                                        {img.desc}
+                                    </p>
+                                )}
+                            </motion.div>
+                        ))}
+                    </div>
+                </div>
+            )}
+
             {/* 🎥 DEMO VIDEO (JIKA ADA) */}
             {project.videos && project.videos.length > 0 && (
                 <div className="space-y-6">
