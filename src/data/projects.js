@@ -6,9 +6,12 @@ export const projectsData = [
     section: "web", // "web" | "game"
     demoUrl: "https://webdemo.mrapro.site",
     images: [
-      { url: "/images/WebStore/dashboard.png", desc: "Tampilan antarmuka demo" }
+      {
+        url: "/images/WebStore/dashboard.png",
+        desc: "Tampilan antarmuka demo",
+      },
     ],
-    videos: []
+    videos: [],
   },
   {
     id: "whatsapp-bot",
@@ -20,23 +23,20 @@ export const projectsData = [
       { url: "/images/Wabot/menu.jpeg", desc: "Tampilan menu utama bot" },
       { url: "/images/Wabot/allmenu.jpeg", desc: "Tampilan semua fitur bot" },
       { url: "/images/Wabot/tutorial.jpeg", desc: "Fitur tutorial bot" },
-      { url: "/images/Wabot/downloader.jpeg", desc: "Fitur downloader" }
+      { url: "/images/Wabot/downloader.jpeg", desc: "Fitur downloader" },
     ],
-    videos: []
+    videos: [],
   },
   {
-    id: "web-store",
-    name: "Web Store",
-    desc: "Web penjualan sederhana",
+    id: "android-app-demo",
+    name: "Android App Demo",
+    desc: "Aplikasi Android yang dapat dijalankan langsung di browser melalui emulator Appetize.",
     section: "web",
-    demoUrl: "https://webdemo.mrapro.site",
-    images: [
-      { url: "/images/WebStore/admindashboard.png", desc: "Admin Dashboard" },
-      { url: "/images/WebStore/dashboard.png", desc: "Landing page user" },
-      { url: "/images/WebStore/cekout.png", desc: "Checkout page" },
-      { url: "/images/WebStore/payment.png", desc: "Payment page" }
-    ],
-    videos: []
+    badge: "📱 Live Android App",
+    appetizeUrl:
+      "https://appetize.io/embed/b_h5neg7hn2ffvpikt4lpbqon6t4?autoplay=false",
+    images: [],
+    videos: [],
   },
   {
     id: "web-sis",
@@ -47,19 +47,17 @@ export const projectsData = [
       { url: "/images/WebSIS/dashboard.png", desc: "Dashboard Sekolah" },
       { url: "/images/WebSIS/adminpanel.png", desc: "Admin panel" },
       { url: "/images/WebSIS/loginaprt.png", desc: "Login admin" },
-      { url: "/images/WebSIS/profilguru.png", desc: "Profil guru" }
+      { url: "/images/WebSIS/profilguru.png", desc: "Profil guru" },
     ],
-    videos: []
+    videos: [],
   },
   {
     id: "pirate-osam",
     name: "Pirate OSAM",
     desc: "Game sederhana dengan mekanisme misi serta pertarungan ringan",
     section: "game",
-    images: [
-      { url: "/images/pirate1.jpg", desc: "Gameplay dunia pirate" }
-    ],
-    videos: []
+    images: [{ url: "/images/pirate1.jpg", desc: "Gameplay dunia pirate" }],
+    videos: [],
   },
   {
     id: "vr-home-design",
@@ -68,13 +66,16 @@ export const projectsData = [
     section: "game",
     images: [
       { url: "/images/VrHD/mainmenu.png", desc: "MainMenu VR Home Design" },
-      { url: "/images/VrHD/Tutorial.png", desc: "Tutorial Scene VR Home Design" }
+      {
+        url: "/images/VrHD/Tutorial.png",
+        desc: "Tutorial Scene VR Home Design",
+      },
     ],
     videos: [
       {
         url: "/videos/vr-demo.mp4",
-        desc: "Demo interaksi VR"
-      }
-    ]
-  }
-]
+        desc: "Demo interaksi VR",
+      },
+    ],
+  },
+];
