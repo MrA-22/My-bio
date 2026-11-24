@@ -32,9 +32,8 @@ export const projectsData = [
     name: "Kasir Pro",
     desc: "aplikasi kasir profesional untuk menunjang usaha anda.",
     section: "web",
-    badge: "📱 Live Android App",
-    appetizeUrl:
-      "https://appetize.io/embed/b_h5neg7hn2ffvpikt4lpbqon6t4?autoplay=false",
+    badge: "📱 Android UI Clone",
+    uiClone: "kasir-pro",
     images: [],
     videos: [],
   },

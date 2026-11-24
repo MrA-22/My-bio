@@ -2,7 +2,8 @@ import { useParams, Link } from "react-router-dom"
 import { motion } from "framer-motion"
 import { projectsData } from "../data/projects"
 import LiveWebPreview from "../components/clones/LiveWebPreview"
-import AppetizePreview from "../components/clones/AppetizePreview"
+import PhoneMockup from "../components/clones/PhoneMockup"
+import KasirProClone from "../components/clones/KasirProClone"
 
 export default function ProjectDetail() {
     const { id } = useParams()
@@ -102,7 +103,7 @@ export default function ProjectDetail() {
                 )}
             </div>
 
-            {/* 🌐 LIVE DEMO INTERAKTIF */}
+            {/* 🌐 LIVE WEB DEMO */}
             {project.demoUrl && (
                 <div className="space-y-4">
                     <h2 className="text-lg font-semibold text-cyan-400 uppercase tracking-widest">
@@ -112,13 +113,29 @@ export default function ProjectDetail() {
                 </div>
             )}
 
-            {/* 📱 LIVE ANDROID EMULATOR (APPETIZE) */}
-            {project.appetizeUrl && (
+            {/* 📱 INTERACTIVE ANDROID UI CLONE */}
+            {project.uiClone === "kasir-pro" && (
                 <div className="space-y-4">
                     <h2 className="text-lg font-semibold text-cyan-400 uppercase tracking-widest">
                         📱 Interactive Android Demo
                     </h2>
-                    <AppetizePreview url={project.appetizeUrl} title={project.name} />
+                    <div className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-8 items-center shadow-[0_0_40px_rgba(34,211,238,0.12)]">
+                        <div className="space-y-3">
+                            <span className="inline-block text-xs px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-400/40 text-cyan-300">
+                                Android POS Flow Simulation
+                            </span>
+                            <h3 className="text-2xl font-bold text-white">
+                                {project.name} — Mobile View
+                            </h3>
+                            <p className="text-sm text-gray-400 leading-relaxed">
+                                Simulasi interaktif alur kasir, kelola produk, hitung kembalian tunai/QRIS, struk digital, dan laporan transaksi langsung dari browser.
+                            </p>
+                        </div>
+
+                        <PhoneMockup label={`${project.name} • Android View`}>
+                            <KasirProClone />
+                        </PhoneMockup>
+                    </div>
                 </div>
             )}
 
