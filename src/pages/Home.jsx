@@ -1,9 +1,8 @@
 import Hero from "../components/sections/Hero"
+import useDocumentTitle from "../hooks/useDocumentTitle"
 
 export default function Home() {
-  return (
-    <div className="space-y-24">
-      <Hero />
-    </div>
-  )
+  useDocumentTitle()
+
+  return <Hero />
 }

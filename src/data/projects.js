@@ -3,8 +3,9 @@ export const projectsData = [
     id: "webdemo-mrapro",
     name: "Web Demo Portal",
     desc: "Demo web interaktif yang bisa dijalankan langsung di dalam frame Android maupun desktop.",
-    section: "web", // "web" | "game"
+    section: "web",
     demoUrl: "https://webdemo.mrapro.site",
+    tech: [],
     images: [
       {
         url: "/images/WebStore/dashboard.png",
@@ -19,6 +20,7 @@ export const projectsData = [
     desc: "BOT WhatsApp with many feature",
     section: "web",
     botNumber: "6287894991151",
+    tech: [],
     images: [
       { url: "/images/Wabot/menu.jpeg", desc: "Tampilan menu utama bot" },
       { url: "/images/Wabot/allmenu.jpeg", desc: "Tampilan semua fitur bot" },
@@ -35,6 +37,8 @@ export const projectsData = [
     badge: "📱 Android Kotlin App",
     uiClone: "kasir-pro",
     apkUrl: "https://github.com/MrA-22/Kasir_pro/releases/download/KasirProNew/Kasir.Pro.apk",
+    cover: "/images/kasir-pro/Screenshot_20261124-101111_Kasir Pro.png",
+    tech: ["Kotlin", "Android"],
     images: [],
     videos: [],
   },
@@ -43,6 +47,7 @@ export const projectsData = [
     name: "Pirate OSAM",
     desc: "Game sederhana dengan mekanisme misi serta pertarungan ringan",
     section: "game",
+    tech: [],
     images: [{ url: "/images/pirate1.jpg", desc: "Gameplay dunia pirate" }],
     videos: [],
   },
@@ -51,6 +56,8 @@ export const projectsData = [
     name: "VR Home Design",
     desc: "Game virtual reality untuk visualisasi desain interior rumah",
     section: "game",
+    featured: true,
+    tech: ["Unity", "C#", "VR"],
     images: [
       { url: "/images/VrHD/mainmenu.png", desc: "MainMenu VR Home Design" },
       {
@@ -65,4 +72,4 @@ export const projectsData = [
       },
     ],
   },
-];
+]
