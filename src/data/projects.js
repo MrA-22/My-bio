@@ -46,7 +46,7 @@ export const projectsData = [
     id: "PhotoBlur",
     name: "PhotoBlur",
     desc: "Web Photobooth dengan banyak tema dan kostumasi",
-    section: "game",
+    section: "web",
     featured: true,
     defaultView: "desktop",
     tech: ["React", "Tailwind"],
