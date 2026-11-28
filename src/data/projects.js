@@ -44,7 +44,7 @@ export const projectsData = [
   },
   {
     id: "PhotoBlur",
-    name: "PhotoBlur"
+    name: "PhotoBlur",
     desc: "Web Photobooth dengan banyak tema dan kostumasi",
     section: "game",
     featured: true,
