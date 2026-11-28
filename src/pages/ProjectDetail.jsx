@@ -185,12 +185,17 @@ export default function ProjectDetail() {
         )}
       </div>
 
-      {project.demoUrl && (
+      {(project.demoUrl || (project.demos && project.demos.length > 0)) && (
         <div className="space-y-4">
           <h2 className="text-lg font-semibold text-cyan-400 uppercase tracking-widest">
             🌐 Live Demo
           </h2>
-          <LiveWebPreview url={project.demoUrl} title={project.name} />
+          <LiveWebPreview
+            url={project.demoUrl}
+            demos={project.demos}
+            title={project.name}
+            defaultView={project.defaultView || "desktop"}
+          />
         </div>
       )}
 

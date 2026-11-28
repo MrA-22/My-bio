@@ -1,151 +1,73 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import emailjs from "@emailjs/browser"
 import { motion } from "framer-motion"
+import Background from "../components/ui/Background"
+import AnimatedText from "../components/ui/AnimatedText"
+import useDocumentTitle from "../hooks/useDocumentTitle"
+import { profile } from "../data/profile"
+
+const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || "service_mr4"
+const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "template_diwbyo2"
+const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "XY0qy8JKTPjFN75-e"
+
+const initialForm = { name: "", email: "", message: "" }
+
+const fieldClass =
+  "w-full p-3 rounded-lg bg-black/40 border border-white/10 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/40 outline-none text-sm transition disabled:opacity-60"
+
+const statusMessages = {
+  success: { text: "Pesan berhasil terkirim. Terima kasih!", className: "text-green-400" },
+  error: { text: "Pesan gagal terkirim. Coba lagi atau hubungi lewat WhatsApp.", className: "text-red-400" },
+}
 
 export default function Contact() {
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    message: "",
-  })
+  useDocumentTitle("Contact")
+  const [form, setForm] = useState(initialForm)
+  const [status, setStatus] = useState("idle")
 
-  const [mouse, setMouse] = useState({ x: 0, y: 0 })
-
-  // Cursor glow follow mouse
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      setMouse({ x: e.clientX, y: e.clientY })
-    }
-    window.addEventListener("mousemove", handleMouseMove)
-    return () => window.removeEventListener("mousemove", handleMouseMove)
-  }, [])
+  const sending = status === "sending"
 
   const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    })
+    const { name, value } = e.target
+    setForm((prev) => ({ ...prev, [name]: value }))
+    if (status === "success" || status === "error") setStatus("idle")
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
+    if (sending) return
+    setStatus("sending")
 
-    emailjs
-      .send(
-        "service_mr4",
-        "template_diwbyo2",
+    try {
+      await emailjs.send(
+        SERVICE_ID,
+        TEMPLATE_ID,
         {
-          name: form.name,
-          email: form.email,
-          message: form.message,
+          name: form.name.trim(),
+          email: form.email.trim(),
+          message: form.message.trim(),
         },
-        "XY0qy8JKTPjFN75-e"
+        PUBLIC_KEY
       )
-      .then(() => {
-        alert("Message sent successfully!")
-        setForm({ name: "", email: "", message: "" })
-      })
-      .catch((error) => {
-        console.error(error)
-        alert("Failed to send message")
-      })
+      setForm(initialForm)
+      setStatus("success")
+    } catch (error) {
+      console.error(error)
+      setStatus("error")
+    }
   }
 
-  // Page transition
-  const container = {
-    hidden: { opacity: 0, y: 40, filter: "blur(8px)" },
-    show: {
-      opacity: 1,
-      y: 0,
-      filter: "blur(0px)",
-      transition: {
-        staggerChildren: 0.12,
-        delayChildren: 0.2,
-        duration: 0.5,
-      },
-    },
-    exit: {
-      opacity: 0,
-      y: -40,
-      filter: "blur(8px)",
-      transition: { duration: 0.3 },
-    },
-  }
-
-  // Letter animation
-  const letterVariant = {
-    hidden: { opacity: 0, y: 20, filter: "blur(6px)" },
-    visible: (i) => ({
-      opacity: 1,
-      y: 0,
-      filter: "blur(0px)",
-      transition: {
-        delay: i * 0.03,
-        duration: 0.4,
-      },
-    }),
-  }
-
-  const AnimatedText = ({ text }) => {
-    return (
-      <span className="inline-block">
-        {text.split("").map((char, i) => (
-          <motion.span
-            key={i}
-            custom={i}
-            variants={letterVariant}
-            initial="hidden"
-            animate="visible"
-            className="inline-block"
-          >
-            {char}
-          </motion.span>
-        ))}
-      </span>
-    )
-  }
+  const feedback = statusMessages[status]
 
   return (
-    <motion.div
-      variants={container}
-      initial="hidden"
-      animate="show"
-      exit="exit"
-      className="min-h-[100dvh] px-4 md:px-6 py-14 md:py-20 flex items-center md:items-center justify-center bg-black text-white relative overflow-x-hidden overflow-y-auto"
-    >
-      {/* 🌌 Cursor Glow (disable di mobile) */}
-      <div
-        className="pointer-events-none fixed w-72 h-72 rounded-full blur-3xl opacity-30 bg-cyan-400 hidden md:block"
-        style={{
-          left: mouse.x - 150,
-          top: mouse.y - 150,
-        }}
-      />
+    <div className="relative min-h-screen flex items-center justify-center px-4 md:px-6 pt-28 pb-16 bg-black text-white">
+      <Background particleCount={12} />
 
-      {/* 🌌 Floating Particles */}
-      {Array.from({ length: 12 }).map((_, i) => (
-        <div
-          key={i}
-          className="absolute w-1 h-1 bg-cyan-400 rounded-full opacity-30 animate-pulse"
-          style={{
-            top: `${Math.random() * 100}%`,
-            left: `${Math.random() * 100}%`,
-            animationDuration: `${2 + Math.random() * 3}s`,
-          }}
-        />
-      ))}
-
-      {/* Background Glow */}
-      <div className="absolute w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-cyan-500/20 blur-[120px] rounded-full top-10 left-10"></div>
-      <div className="absolute w-[250px] md:w-[400px] h-[250px] md:h-[400px] bg-purple-500/20 blur-[120px] rounded-full bottom-10 right-10"></div>
-
-      <div className="max-w-6xl w-full mx-auto grid md:grid-cols-2 gap-8 md:gap-10 z-10">
-
-        {/* LEFT */}
+      <div className="relative z-10 max-w-6xl w-full grid md:grid-cols-2 gap-8 md:gap-10">
         <motion.div
           initial={{ opacity: 0, x: -40 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.3 }}
+          transition={{ delay: 0.15 }}
           className="space-y-6"
         >
           <div>
@@ -153,103 +75,127 @@ export default function Contact() {
               <AnimatedText text="Contact Me" />
             </h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-              className="text-gray-400 mt-3 text-sm md:text-base"
-            >
+            <p className="text-gray-400 mt-3 text-sm md:text-base">
               Jika kamu ingin bekerja sama atau berdiskusi, silakan hubungi saya.
-            </motion.p>
+            </p>
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.6 }}
-            className="relative bg-black/40 backdrop-blur-xl p-5 md:p-6 rounded-2xl border border-cyan-500/20 space-y-3"
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-purple-500/10 rounded-2xl" />
+          <div className="relative bg-black/40 backdrop-blur-xl p-5 md:p-6 rounded-2xl border border-cyan-500/20 space-y-3">
+            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-purple-500/10 rounded-2xl pointer-events-none" />
 
-            <p><span className="text-gray-400">Email:</span> ariflgln@email.com</p>
-            <p><span className="text-gray-400">Location:</span> Indonesia</p>
-            <p><span className="text-gray-400">Role:</span> Developer</p>
-          </motion.div>
+            <p className="relative">
+              <span className="text-gray-400">Email:</span>{" "}
+              <a
+                href={`mailto:${profile.email}`}
+                className="text-cyan-300 hover:underline"
+              >
+                {profile.email}
+              </a>
+            </p>
+            <p className="relative">
+              <span className="text-gray-400">Location:</span> {profile.location}
+            </p>
+            <p className="relative">
+              <span className="text-gray-400">Role:</span> Developer
+            </p>
+          </div>
 
           <div className="flex flex-wrap gap-3">
-            {[
-              { name: "GitHub", url: "https://github.com/MrA-22" },
-              { name: "Facebook", url: "https://www.facebook.com/Ruang.saya1/" },
-              { name: "Instagram", url: "https://www.instagram.com/bear_bucin" },
-              { name: "WhatsApp", url: "https://wa.me/6281344195326" },
-            ].map((item, i) => (
+            {profile.socials.map((social) => (
               <motion.a
-                key={i}
+                key={social.name}
                 whileTap={{ scale: 0.95 }}
-                href={item.url}
+                href={social.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-3 py-2 text-sm bg-black/40 border border-white/10 rounded-lg hover:border-cyan-400 transition"
               >
-                {item.name}
+                {social.name}
               </motion.a>
             ))}
           </div>
         </motion.div>
 
-        {/* RIGHT */}
         <motion.div
           initial={{ opacity: 0, x: 40 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.4 }}
+          transition={{ delay: 0.25 }}
           className="relative bg-black/40 backdrop-blur-2xl p-5 md:p-8 rounded-2xl border border-cyan-500/20"
         >
-          <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-purple-500/10 rounded-2xl" />
+          <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-purple-500/10 rounded-2xl pointer-events-none" />
 
-          <h2 className="text-xl md:text-2xl font-semibold mb-5 bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
+          <h2 className="relative text-xl md:text-2xl font-semibold mb-5 bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
             <AnimatedText text="Send Message" />
           </h2>
 
           <form onSubmit={handleSubmit} className="space-y-4 relative z-10">
+            <div>
+              <label htmlFor="name" className="sr-only">
+                Nama
+              </label>
+              <input
+                id="name"
+                type="text"
+                name="name"
+                value={form.name}
+                onChange={handleChange}
+                placeholder="Your name"
+                autoComplete="name"
+                required
+                disabled={sending}
+                className={fieldClass}
+              />
+            </div>
 
-            <input
-              type="text"
-              name="name"
-              value={form.name}
-              onChange={handleChange}
-              placeholder="Your name"
-              className="w-full p-3 rounded-lg bg-black/40 border border-white/10 focus:border-cyan-400 outline-none text-sm"
-            />
+            <div>
+              <label htmlFor="email" className="sr-only">
+                Email
+              </label>
+              <input
+                id="email"
+                type="email"
+                name="email"
+                value={form.email}
+                onChange={handleChange}
+                placeholder="Your email"
+                autoComplete="email"
+                required
+                disabled={sending}
+                className={fieldClass}
+              />
+            </div>
 
-            <input
-              type="email"
-              name="email"
-              value={form.email}
-              onChange={handleChange}
-              placeholder="Your email"
-              className="w-full p-3 rounded-lg bg-black/40 border border-white/10 focus:border-cyan-400 outline-none text-sm"
-            />
-
-            <textarea
-              name="message"
-              value={form.message}
-              onChange={handleChange}
-              rows="4"
-              placeholder="Write your message..."
-              className="w-full p-3 rounded-lg bg-black/40 border border-white/10 focus:border-cyan-400 outline-none text-sm"
-            />
+            <div>
+              <label htmlFor="message" className="sr-only">
+                Pesan
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                value={form.message}
+                onChange={handleChange}
+                rows="5"
+                placeholder="Write your message..."
+                required
+                disabled={sending}
+                className={`${fieldClass} resize-none`}
+              />
+            </div>
 
             <button
               type="submit"
-              className="w-full py-3 rounded-lg bg-gradient-to-r from-cyan-500 to-purple-500 font-semibold"
+              disabled={sending}
+              className="w-full py-3 rounded-lg bg-gradient-to-r from-cyan-500 to-purple-500 font-semibold hover:opacity-90 transition disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              Send Message
+              {sending ? "Mengirim..." : "Send Message"}
             </button>
 
+            <p role="status" aria-live="polite" className={`text-sm min-h-[1.25rem] ${feedback?.className ?? ""}`}>
+              {feedback?.text}
+            </p>
           </form>
         </motion.div>
-
       </div>
-    </motion.div>
+    </div>
   )
 }

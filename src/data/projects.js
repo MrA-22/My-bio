@@ -8,7 +8,7 @@ export const projectsData = [
     tech: [],
     images: [
       {
-        url: "/images/WebStore/dashboard.png",
+        url: "/images/WebSIS/dashboard.png",
         desc: "Tampilan antarmuka demo",
       },
     ],
@@ -43,12 +43,15 @@ export const projectsData = [
     videos: [],
   },
   {
-    id: "pirate-osam",
-    name: "Pirate OSAM",
-    desc: "Game sederhana dengan mekanisme misi serta pertarungan ringan",
+    id: "PhotoBlur",
+    name: "PhotoBlur"
+    desc: "Web Photobooth dengan banyak tema dan kostumasi",
     section: "game",
-    tech: [],
-    images: [{ url: "/images/pirate1.jpg", desc: "Gameplay dunia pirate" }],
+    featured: true,
+    defaultView: "desktop",
+    tech: ["React", "Tailwind"],
+    demoUrl: "https://photoblur.mrapro.site",
+    images: [],
     videos: [],
   },
   {
